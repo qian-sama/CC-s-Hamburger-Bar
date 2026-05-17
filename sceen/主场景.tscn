@@ -1,0 +1,138 @@
+[gd_scene format=3 uid="uid://deqedcptrmj32"]
+
+[ext_resource type="Texture2D" uid="uid://c0e2yet6qdrcl" path="res://游戏素材/场景/主场景.png" id="1_dpnee"]
+[ext_resource type="PackedScene" uid="uid://npw2oj68yntu" path="res://sceen/players.tscn" id="2_gpk2a"]
+[ext_resource type="Script" path="res://sceen/interact_zone.gd" id="3_gpk2a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dpnee"]
+size = Vector2(23, 424)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gpk2a"]
+size = Vector2(20, 440)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_u4u1x"]
+size = Vector2(729, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5vjgv"]
+size = Vector2(232, 62)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h666q"]
+size = Vector2(199, 47)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fdq6r"]
+size = Vector2(40, 153)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_obedb"]
+size = Vector2(174, 58)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ikutx"]
+size = Vector2(156, 52)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mk6uy"]
+size = Vector2(175, 46)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_gxqxw"]
+size = Vector2(188, 48)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_i0fu6"]
+size = Vector2(41, 57)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kjbjy"]
+size = Vector2(165, 55)
+
+[node name="主场景" type="Node2D" unique_id=735080944]
+metadata/_edit_horizontal_guides_ = [-192.0]
+metadata/_edit_vertical_guides_ = [-344.0]
+
+[node name="BG" type="Sprite2D" parent="." unique_id=298719634]
+texture_filter = 1
+texture = ExtResource("1_dpnee")
+
+[node name="Playears" parent="." unique_id=968255622 instance=ExtResource("2_gpk2a")]
+
+[node name="Borders" type="Node2D" parent="." unique_id=1789248338]
+
+[node name="Left" type="StaticBody2D" parent="Borders" unique_id=1489772680]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/Left" unique_id=1139067199]
+position = Vector2(-335, -1)
+shape = SubResource("RectangleShape2D_dpnee")
+
+[node name="Right" type="StaticBody2D" parent="Borders" unique_id=814186603]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/Right" unique_id=1184764341]
+position = Vector2(334, -1)
+shape = SubResource("RectangleShape2D_gpk2a")
+
+[node name="Up" type="StaticBody2D" parent="Borders" unique_id=1794934958]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/Up" unique_id=1092764339]
+position = Vector2(0, -134)
+shape = SubResource("RectangleShape2D_u4u1x")
+
+[node name="Down" type="StaticBody2D" parent="Borders" unique_id=550796267]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/Down" unique_id=172005993]
+position = Vector2(0, 202)
+shape = SubResource("RectangleShape2D_u4u1x")
+
+[node name="Working Borders" type="Node2D" parent="." unique_id=1303375663]
+
+[node name="1" type="StaticBody2D" parent="Working Borders" unique_id=874788200]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Working Borders/1" unique_id=502289463]
+position = Vector2(-228, 99)
+shape = SubResource("RectangleShape2D_5vjgv")
+
+[node name="2" type="StaticBody2D" parent="Working Borders" unique_id=98022685]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Working Borders/2" unique_id=2062620825]
+position = Vector2(-218.5, -98.5)
+shape = SubResource("RectangleShape2D_h666q")
+
+[node name="3" type="StaticBody2D" parent="Working Borders" unique_id=601130000]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Working Borders/3" unique_id=297262507]
+position = Vector2(-297, 2)
+shape = SubResource("RectangleShape2D_fdq6r")
+
+[node name="4" type="StaticBody2D" parent="Working Borders" unique_id=1248856220]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Working Borders/4" unique_id=80491866]
+position = Vector2(27, 102)
+shape = SubResource("RectangleShape2D_obedb")
+
+[node name="5" type="StaticBody2D" parent="Working Borders" unique_id=1083883727]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Working Borders/5" unique_id=29290322]
+position = Vector2(241, 60)
+shape = SubResource("RectangleShape2D_ikutx")
+
+[node name="6" type="StaticBody2D" parent="Working Borders" unique_id=2141588408]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Working Borders/6" unique_id=15650153]
+position = Vector2(20.5, -97)
+shape = SubResource("RectangleShape2D_mk6uy")
+
+[node name="7" type="StaticBody2D" parent="Working Borders" unique_id=274614574]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Working Borders/7" unique_id=1311984356]
+position = Vector2(223, -99)
+shape = SubResource("RectangleShape2D_gxqxw")
+
+[node name="8" type="StaticBody2D" parent="Working Borders" unique_id=971348654]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Working Borders/8" unique_id=1524203950]
+position = Vector2(297.5, -47.5)
+shape = SubResource("RectangleShape2D_i0fu6")
+
+[node name="GrillZone" type="Area2D" parent="." unique_id=521447081]
+script = ExtResource("3_gpk2a")
+target_scene = "res://sceen/grill_sceen.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrillZone" unique_id=1626077922]
+position = Vector2(-191.5, -47.5)
+shape = SubResource("RectangleShape2D_kjbjy")
+
+[connection signal="body_entered" from="GrillZone" to="GrillZone" method="_on_body_entered"]
+[connection signal="body_exited" from="GrillZone" to="GrillZone" method="_on_body_exited"]

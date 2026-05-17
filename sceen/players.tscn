@@ -1,0 +1,159 @@
+[gd_scene format=3 uid="uid://npw2oj68yntu"]
+
+[ext_resource type="Script" uid="uid://c2fqk5gbmwhmi" path="res://sceen/players.gd" id="1_ak4n4"]
+[ext_resource type="Texture2D" uid="uid://wnpkwfebmc5c" path="res://游戏素材/人物/人物动画.png" id="2_cy7rd"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ak4n4"]
+atlas = ExtResource("2_cy7rd")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cy7rd"]
+atlas = ExtResource("2_cy7rd")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hsr3j"]
+atlas = ExtResource("2_cy7rd")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbgtd"]
+atlas = ExtResource("2_cy7rd")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bu3qr"]
+atlas = ExtResource("2_cy7rd")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uj840"]
+atlas = ExtResource("2_cy7rd")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qmiap"]
+atlas = ExtResource("2_cy7rd")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6bq4p"]
+atlas = ExtResource("2_cy7rd")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rdr74"]
+atlas = ExtResource("2_cy7rd")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bdyq3"]
+atlas = ExtResource("2_cy7rd")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o4hr8"]
+atlas = ExtResource("2_cy7rd")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1ihsd"]
+atlas = ExtResource("2_cy7rd")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_elfje"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ak4n4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cy7rd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ak4n4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hsr3j")
+}],
+"loop": true,
+"name": &"left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbgtd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bu3qr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbgtd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uj840")
+}],
+"loop": true,
+"name": &"right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmiap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6bq4p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qmiap")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rdr74")
+}],
+"loop": true,
+"name": &"up_down back",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdyq3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o4hr8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bdyq3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1ihsd")
+}],
+"loop": true,
+"name": &"up_down front",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ak4n4"]
+size = Vector2(8, 13)
+
+[node name="Players" type="CharacterBody2D" unique_id=968255622]
+scale = Vector2(2, 2)
+script = ExtResource("1_ak4n4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=440074234]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_elfje")
+animation = &"up_down front"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1718552350]
+scale = Vector2(2, 2)
+zoom = Vector2(2, 2)
+limit_left = -344
+limit_top = -192
+limit_right = 344
+limit_bottom = 192
+position_smoothing_enabled = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=407590960]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_ak4n4")
+
+[node name="Label" type="Label" parent="." unique_id=1030804604]
+visible = false
+texture_filter = 1
+offset_left = -13.5
+offset_top = -17.5
+offset_right = 14.5
+offset_bottom = -5.5
+theme_override_font_sizes/font_size = 8
+text = "Press E"
+horizontal_alignment = 1

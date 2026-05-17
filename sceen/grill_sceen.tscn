@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://dvf87gxhx87jh"]
+
+[ext_resource type="Texture2D" uid="uid://gcmqnwy6dpfd" path="res://游戏素材/场景/煎肉区-export.png" id="1_cw02v"]
+[ext_resource type="PackedScene" uid="uid://npw2oj68yntu" path="res://sceen/players.tscn" id="2_eouh7"]
+[ext_resource type="Script" path="res://sceen/interact_zone.gd" id="3_exit"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cw02v"]
+size = Vector2(417, 192)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eouh7"]
+size = Vector2(30.25, 466)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ksftc"]
+size = Vector2(20, 502)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_t8fmo"]
+size = Vector2(828, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(180, 50)
+
+[node name="GrillSceen" type="Node2D" unique_id=1286463165]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=195954807]
+scale = Vector2(0.6, 0.6)
+texture = ExtResource("1_cw02v")
+
+[node name="Border" type="Node2D" parent="." unique_id=2056498273]
+
+[node name="1" type="StaticBody2D" parent="Border" unique_id=443575798]
+position = Vector2(-1, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/1" unique_id=1591861865]
+position = Vector2(2.5, -18)
+shape = SubResource("RectangleShape2D_cw02v")
+
+[node name="2" type="StaticBody2D" parent="Border" unique_id=754949270]
+position = Vector2(3, -1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/2" unique_id=1545133338]
+position = Vector2(-224, -3)
+shape = SubResource("RectangleShape2D_eouh7")
+
+[node name="3" type="StaticBody2D" parent="Border" unique_id=1692737201]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/3" unique_id=721008328]
+position = Vector2(213, 9)
+shape = SubResource("RectangleShape2D_ksftc")
+
+[node name="4" type="StaticBody2D" parent="Border" unique_id=49838413]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/4" unique_id=1261286630]
+position = Vector2(1, 125)
+shape = SubResource("RectangleShape2D_t8fmo")
+
+[node name="ExitZone" type="Area2D" parent="."]
+script = ExtResource("3_exit")
+target_scene = "res://sceen/主场景.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
+position = Vector2(0, 108)
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="Players" parent="." unique_id=968255622 instance=ExtResource("2_eouh7")]
+position = Vector2(2, 60)
+
+[connection signal="body_entered" from="ExitZone" to="ExitZone" method="_on_body_entered"]
+[connection signal="body_exited" from="ExitZone" to="ExitZone" method="_on_body_exited"]
