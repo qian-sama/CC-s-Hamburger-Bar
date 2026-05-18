@@ -1,17 +1,30 @@
 [gd_scene format=3 uid="uid://dvf87gxhx87jh"]
 
-[ext_resource type="Texture2D" uid="uid://gcmqnwy6dpfd" path="res://游戏素材/场景/煎肉区-export.png" id="1_cw02v"]
+[ext_resource type="Texture2D" uid="uid://bnkppue72jf78" path="res://游戏素材/场景/煎肉区2-export.png" id="1_ksftc"]
 [ext_resource type="PackedScene" uid="uid://npw2oj68yntu" path="res://sceen/players.tscn" id="2_eouh7"]
-[ext_resource type="Script" path="res://sceen/interact_zone.gd" id="3_exit"]
+[ext_resource type="Script" uid="uid://bq37h2du5k57x" path="res://sceen/interact_zone.gd" id="3_exit"]
+[ext_resource type="Script" uid="uid://cg6w373gqvgrk" path="res://sceen/grill_work.gd" id="4_work"]
+[ext_resource type="Script" uid="uid://bnt4yn1g45e3x" path="res://sceen/grill_plate.gd" id="5_plate"]
+[ext_resource type="Script" uid="uid://c5x23tcrg31f3" path="res://sceen/grill_slot.gd" id="6_slot"]
+[ext_resource type="Script" uid="uid://bag83pu76susn" path="res://sceen/cooked_patty_holder.gd" id="7_holder"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cold"]
+size = Vector2(44, 25.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_grill_pickup"]
+size = Vector2(114, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cooked"]
+size = Vector2(43, 56)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cw02v"]
-size = Vector2(417, 192)
+size = Vector2(414, 107)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eouh7"]
 size = Vector2(30.25, 466)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ksftc"]
-size = Vector2(20, 502)
+size = Vector2(16, 502)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t8fmo"]
 size = Vector2(828, 20)
@@ -20,10 +33,128 @@ size = Vector2(828, 20)
 size = Vector2(180, 50)
 
 [node name="GrillSceen" type="Node2D" unique_id=1286463165]
+metadata/_edit_vertical_guides_ = [-206.0]
+metadata/_edit_horizontal_guides_ = [-115.0]
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=195954807]
-scale = Vector2(0.6, 0.6)
-texture = ExtResource("1_cw02v")
+[node name="主背景" type="Sprite2D" parent="." unique_id=195954807]
+texture_filter = 1
+scale = Vector2(1.2, 1.2)
+texture = ExtResource("1_ksftc")
+
+[node name="WorkAreas" type="Node2D" parent="." unique_id=1788847012]
+z_index = 1
+script = ExtResource("4_work")
+
+[node name="Patties" type="Node2D" parent="WorkAreas" unique_id=207387406]
+
+[node name="ColdStorage" type="Area2D" parent="WorkAreas" unique_id=2009691503]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorkAreas/ColdStorage" unique_id=1142604502]
+position = Vector2(-115, 5.25)
+shape = SubResource("RectangleShape2D_cold")
+
+[node name="GrillPickupZone" type="Area2D" parent="WorkAreas" unique_id=2009691504]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorkAreas/GrillPickupZone" unique_id=1142604503]
+position = Vector2(1, 8)
+shape = SubResource("RectangleShape2D_grill_pickup")
+
+[node name="GrillPlate" type="Node2D" parent="WorkAreas" unique_id=1669696669]
+script = ExtResource("5_plate")
+
+[node name="Slot0" type="Node2D" parent="WorkAreas/GrillPlate" unique_id=825932406]
+script = ExtResource("6_slot")
+
+[node name="Marker2D" type="Marker2D" parent="WorkAreas/GrillPlate/Slot0" unique_id=392447436]
+position = Vector2(-40, -75)
+
+[node name="Slot1" type="Node2D" parent="WorkAreas/GrillPlate" unique_id=821478416]
+script = ExtResource("6_slot")
+slot_index = 1
+
+[node name="Marker2D" type="Marker2D" parent="WorkAreas/GrillPlate/Slot1" unique_id=709593512]
+position = Vector2(-15, -75)
+
+[node name="Slot2" type="Node2D" parent="WorkAreas/GrillPlate" unique_id=770355519]
+script = ExtResource("6_slot")
+slot_index = 2
+
+[node name="Marker2D" type="Marker2D" parent="WorkAreas/GrillPlate/Slot2" unique_id=1746371477]
+position = Vector2(14, -75)
+
+[node name="Slot3" type="Node2D" parent="WorkAreas/GrillPlate" unique_id=648986657]
+script = ExtResource("6_slot")
+slot_index = 3
+
+[node name="Marker2D" type="Marker2D" parent="WorkAreas/GrillPlate/Slot3" unique_id=1886802711]
+position = Vector2(41, -75)
+
+[node name="Slot4" type="Node2D" parent="WorkAreas/GrillPlate" unique_id=648986658]
+script = ExtResource("6_slot")
+slot_index = 4
+
+[node name="Marker2D" type="Marker2D" parent="WorkAreas/GrillPlate/Slot4" unique_id=1886802712]
+position = Vector2(-40, -48)
+
+[node name="Slot5" type="Node2D" parent="WorkAreas/GrillPlate" unique_id=648986659]
+script = ExtResource("6_slot")
+slot_index = 5
+
+[node name="Marker2D" type="Marker2D" parent="WorkAreas/GrillPlate/Slot5" unique_id=1886802713]
+position = Vector2(-14, -48)
+
+[node name="Slot6" type="Node2D" parent="WorkAreas/GrillPlate" unique_id=648986660]
+script = ExtResource("6_slot")
+slot_index = 6
+
+[node name="Marker2D" type="Marker2D" parent="WorkAreas/GrillPlate/Slot6" unique_id=1886802714]
+position = Vector2(14, -48)
+
+[node name="Slot7" type="Node2D" parent="WorkAreas/GrillPlate" unique_id=648986661]
+script = ExtResource("6_slot")
+slot_index = 7
+
+[node name="Marker2D" type="Marker2D" parent="WorkAreas/GrillPlate/Slot7" unique_id=1886802715]
+position = Vector2(41, -49)
+
+[node name="CookedHolder" type="Area2D" parent="WorkAreas" unique_id=512349728]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("7_holder")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="WorkAreas/CookedHolder" unique_id=739040923]
+position = Vector2(124.5, -60)
+shape = SubResource("RectangleShape2D_cooked")
+
+[node name="DisplayedPatties" type="Node2D" parent="WorkAreas/CookedHolder" unique_id=925749328]
+
+[node name="DisplaySlots" type="Node2D" parent="WorkAreas/CookedHolder" unique_id=382566693]
+
+[node name="Slot0" type="Marker2D" parent="WorkAreas/CookedHolder/DisplaySlots" unique_id=253215440]
+position = Vector2(113, -78)
+
+[node name="Slot1" type="Marker2D" parent="WorkAreas/CookedHolder/DisplaySlots" unique_id=915560369]
+position = Vector2(113, -68)
+
+[node name="Slot2" type="Marker2D" parent="WorkAreas/CookedHolder/DisplaySlots" unique_id=1263017704]
+position = Vector2(113, -57)
+
+[node name="Slot3" type="Marker2D" parent="WorkAreas/CookedHolder/DisplaySlots" unique_id=27049299]
+position = Vector2(113, -47)
+
+[node name="Slot4" type="Marker2D" parent="WorkAreas/CookedHolder/DisplaySlots" unique_id=476965146]
+position = Vector2(130, -78)
+
+[node name="Slot5" type="Marker2D" parent="WorkAreas/CookedHolder/DisplaySlots" unique_id=1836182135]
+position = Vector2(130, -68)
+
+[node name="Slot6" type="Marker2D" parent="WorkAreas/CookedHolder/DisplaySlots" unique_id=401262388]
+position = Vector2(130, -57)
+
+[node name="Slot7" type="Marker2D" parent="WorkAreas/CookedHolder/DisplaySlots" unique_id=71215693]
+position = Vector2(130, -47)
 
 [node name="Border" type="Node2D" parent="." unique_id=2056498273]
 
@@ -31,7 +162,8 @@ texture = ExtResource("1_cw02v")
 position = Vector2(-1, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Border/1" unique_id=1591861865]
-position = Vector2(2.5, -18)
+texture_filter = 1
+position = Vector2(1, -60.5)
 shape = SubResource("RectangleShape2D_cw02v")
 
 [node name="2" type="StaticBody2D" parent="Border" unique_id=754949270]
@@ -44,7 +176,7 @@ shape = SubResource("RectangleShape2D_eouh7")
 [node name="3" type="StaticBody2D" parent="Border" unique_id=1692737201]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Border/3" unique_id=721008328]
-position = Vector2(213, 9)
+position = Vector2(215, 9)
 shape = SubResource("RectangleShape2D_ksftc")
 
 [node name="4" type="StaticBody2D" parent="Border" unique_id=49838413]
@@ -53,16 +185,27 @@ shape = SubResource("RectangleShape2D_ksftc")
 position = Vector2(1, 125)
 shape = SubResource("RectangleShape2D_t8fmo")
 
-[node name="ExitZone" type="Area2D" parent="."]
+[node name="ExitZone" type="Area2D" parent="." unique_id=1020034920]
 script = ExtResource("3_exit")
 target_scene = "res://sceen/主场景.tscn"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone"]
-position = Vector2(0, 108)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=101004359]
+position = Vector2(1, 90)
 shape = SubResource("RectangleShape2D_exit")
 
 [node name="Players" parent="." unique_id=968255622 instance=ExtResource("2_eouh7")]
-position = Vector2(2, 60)
+position = Vector2(1, 97)
+
+[node name="Camera2D" parent="Players" index="1" unique_id=1718552350]
+texture_filter = 1
+position = Vector2(0, -0.5)
+zoom = Vector2(3, 3)
+limit_left = -206
+limit_top = -115
+limit_right = 206
+limit_bottom = 115
 
 [connection signal="body_entered" from="ExitZone" to="ExitZone" method="_on_body_entered"]
 [connection signal="body_exited" from="ExitZone" to="ExitZone" method="_on_body_exited"]
+
+[editable path="Players"]

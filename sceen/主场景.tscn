@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://c0e2yet6qdrcl" path="res://游戏素材/场景/主场景.png" id="1_dpnee"]
 [ext_resource type="PackedScene" uid="uid://npw2oj68yntu" path="res://sceen/players.tscn" id="2_gpk2a"]
-[ext_resource type="Script" path="res://sceen/interact_zone.gd" id="3_gpk2a"]
+[ext_resource type="Script" uid="uid://bq37h2du5k57x" path="res://sceen/interact_zone.gd" id="3_gpk2a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dpnee"]
 size = Vector2(23, 424)
@@ -39,6 +39,9 @@ size = Vector2(41, 57)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kjbjy"]
 size = Vector2(165, 55)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_assembly"]
+size = Vector2(193, 47)
 
 [node name="主场景" type="Node2D" unique_id=735080944]
 metadata/_edit_horizontal_guides_ = [-192.0]
@@ -134,5 +137,15 @@ target_scene = "res://sceen/grill_sceen.tscn"
 position = Vector2(-191.5, -47.5)
 shape = SubResource("RectangleShape2D_kjbjy")
 
+[node name="AssemblyZone" type="Area2D" parent="." unique_id=521447082]
+script = ExtResource("3_gpk2a")
+target_scene = "res://sceen/assemble.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AssemblyZone" unique_id=1626077923]
+position = Vector2(17.5, -43.5)
+shape = SubResource("RectangleShape2D_assembly")
+
 [connection signal="body_entered" from="GrillZone" to="GrillZone" method="_on_body_entered"]
 [connection signal="body_exited" from="GrillZone" to="GrillZone" method="_on_body_exited"]
+[connection signal="body_entered" from="AssemblyZone" to="AssemblyZone" method="_on_body_entered"]
+[connection signal="body_exited" from="AssemblyZone" to="AssemblyZone" method="_on_body_exited"]
