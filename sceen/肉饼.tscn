@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://bhm7d74chpbp"]
+
+[ext_resource type="Texture2D" uid="uid://psg3v2f00ae" path="res://游戏素材/食材/肉饼.png" id="1_atlas"]
+[ext_resource type="Script" uid="uid://dvy20pb1i5khb" path="res://sceen/patty.gd" id="2_patty"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_raw"]
+atlas = ExtResource("1_atlas")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3min"]
+atlas = ExtResource("1_atlas")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7min"]
+atlas = ExtResource("1_atlas")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_done"]
+atlas = ExtResource("1_atlas")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_burnt"]
+atlas = ExtResource("1_atlas")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_grill"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_raw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3min")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7min")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_done")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_burnt")
+}],
+"loop": false,
+"name": &"grill",
+"speed": 1.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hit"]
+radius = 8.0
+
+[node name="肉饼" type="Area2D" unique_id=1489140105]
+script = ExtResource("2_patty")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=445546034]
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_grill")
+animation = &"grill"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1607557957]
+shape = SubResource("CircleShape2D_hit")
