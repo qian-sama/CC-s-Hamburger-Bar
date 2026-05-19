@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgaxwatb2sd86"
-path="res://.godot/imported/组装区.jpg-5bdd0a5185c162e2811a0e56b7eafefc.ctex"
+uid="uid://c0k56kxlweuhr"
+path="res://.godot/imported/全熟肉饼.png-ebe5e8ecf02ea54fa8e50e005c374ca1.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://游戏素材/场景/组装区.jpg"
-dest_files=["res://.godot/imported/组装区.jpg-5bdd0a5185c162e2811a0e56b7eafefc.ctex"]
+source_file="res://游戏素材/食材/全熟肉饼.png"
+dest_files=["res://.godot/imported/全熟肉饼.png-ebe5e8ecf02ea54fa8e50e005c374ca1.ctex"]
 
 [params]
 

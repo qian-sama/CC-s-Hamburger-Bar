@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgaxwatb2sd86"
-path="res://.godot/imported/组装区.jpg-5bdd0a5185c162e2811a0e56b7eafefc.ctex"
+uid="uid://df477k8ldhx2m"
+path="res://.godot/imported/汉堡上皮.png-e3dd5c7349f86801e57a5e1ca51d3b29.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://游戏素材/场景/组装区.jpg"
-dest_files=["res://.godot/imported/组装区.jpg-5bdd0a5185c162e2811a0e56b7eafefc.ctex"]
+source_file="res://游戏素材/食材/汉堡上皮.png"
+dest_files=["res://.godot/imported/汉堡上皮.png-e3dd5c7349f86801e57a5e1ca51d3b29.ctex"]
 
 [params]
 

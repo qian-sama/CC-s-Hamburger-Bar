@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://cj58es27xu3ec"]
 
-[ext_resource type="Texture2D" uid="uid://ban6pb2ein55w" path="res://游戏素材/场景/组装区.jpg" id="1_gbx43"]
-[ext_resource type="PackedScene" uid="uid://npw2oj68yntu" path="res://sceen/players.tscn" id="2_players"]
-[ext_resource type="Script" uid="uid://bq37h2du5k57x" path="res://sceen/interact_zone.gd" id="3_exit"]
+[ext_resource type="Texture2D" uid="uid://xkhe8y3oftcy" path="res://游戏素材/场景/组装区2.png" id="2_1geyx"]
+[ext_resource type="Script" uid="uid://c25jlpf1hwklc" path="res://sceen/assemble_work.gd" id="4_work"]
+[ext_resource type="Script" uid="uid://bag83pu76susn" path="res://sceen/cooked_patty_holder.gd" id="5_holder"]
+[ext_resource type="Script" uid="uid://i2qw0ty5r8o" path="res://sceen/ingredient_carousel.gd" id="6_carousel"]
+[ext_resource type="Script" uid="uid://dhs7rcmqla0h7" path="res://sceen/burger_stack.gd" id="7_stack"]
+[ext_resource type="Script" uid="uid://lwtnjwxtv5m4" path="res://sceen/finished_burger_plate.gd" id="8_finished"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_top"]
 size = Vector2(468, 20)
@@ -16,17 +19,27 @@ size = Vector2(20, 256)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_bottom"]
 size = Vector2(436, 20)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
-size = Vector2(155, 21)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1geyx"]
+size = Vector2(50, 64)
 
 [node name="Assemble" type="Node2D" unique_id=933635549]
+script = ExtResource("4_work")
 metadata/_edit_vertical_guides_ = [-172.0, 172.0]
 metadata/_edit_horizontal_guides_ = [-96.0, 96.0]
 
 [node name="主背景" type="Sprite2D" parent="." unique_id=2120081444]
 texture_filter = 1
-scale = Vector2(0.2776163, 0.27864584)
-texture = ExtResource("1_gbx43")
+position = Vector2(-0.7500079, 0.2500015)
+scale = Vector2(1.1148256, 1.1119792)
+texture = ExtResource("2_1geyx")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1718552350]
+position = Vector2(0, -90)
+zoom = Vector2(3, 3)
+limit_left = -193
+limit_top = -107
+limit_right = 192
+limit_bottom = 108
 
 [node name="Border" type="Node2D" parent="." unique_id=1780102532]
 
@@ -54,31 +67,131 @@ shape = SubResource("RectangleShape2D_right")
 position = Vector2(0, -64)
 shape = SubResource("RectangleShape2D_bottom")
 
-[node name="ExitZone" type="Area2D" parent="." unique_id=1020034921]
-script = ExtResource("3_exit")
-target_scene = "res://sceen/主场景.tscn"
+[node name="CookedHolder" type="Area2D" parent="." unique_id=512349729]
+collision_layer = 0
+collision_mask = 0
+script = ExtResource("5_holder")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=101004360]
-position = Vector2(2, -97.5)
-shape = SubResource("RectangleShape2D_exit")
+[node name="DisplayedPatties" type="Node2D" parent="CookedHolder" unique_id=925749329]
 
-[node name="Players" parent="." unique_id=968255623 instance=ExtResource("2_players")]
-position = Vector2(0, -90)
+[node name="DisplaySlots" type="Node2D" parent="CookedHolder" unique_id=382566694]
 
-[node name="Camera2D" parent="Players" index="1" unique_id=1718552350]
+[node name="Slot0" type="Marker2D" parent="CookedHolder/DisplaySlots" unique_id=253215441]
+position = Vector2(-134, 2)
+
+[node name="Slot1" type="Marker2D" parent="CookedHolder/DisplaySlots" unique_id=915560370]
+position = Vector2(-134, 16)
+
+[node name="Slot2" type="Marker2D" parent="CookedHolder/DisplaySlots" unique_id=1263017705]
+position = Vector2(-134, 29)
+
+[node name="Slot3" type="Marker2D" parent="CookedHolder/DisplaySlots" unique_id=27049300]
+position = Vector2(-134, 41)
+
+[node name="Slot4" type="Marker2D" parent="CookedHolder/DisplaySlots" unique_id=476965147]
+position = Vector2(-111, 2)
+
+[node name="Slot5" type="Marker2D" parent="CookedHolder/DisplaySlots" unique_id=1836182136]
+position = Vector2(-111, 16)
+
+[node name="Slot6" type="Marker2D" parent="CookedHolder/DisplaySlots" unique_id=401262389]
+position = Vector2(-111, 29)
+
+[node name="Slot7" type="Marker2D" parent="CookedHolder/DisplaySlots" unique_id=71215694]
+position = Vector2(-111, 41)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CookedHolder" unique_id=1625392089]
+position = Vector2(-118, 24)
+shape = SubResource("RectangleShape2D_1geyx")
+
+[node name="AssemblyPlate" type="Marker2D" parent="." unique_id=1360873334]
+position = Vector2(-5, 25)
+
+[node name="BurgerStack" type="Node2D" parent="AssemblyPlate" unique_id=214787212]
+script = ExtResource("7_stack")
+
+[node name="Layers" type="Node2D" parent="AssemblyPlate/BurgerStack" unique_id=839622631]
+
+[node name="PlateHint" type="Label" parent="AssemblyPlate" unique_id=1702398702]
 texture_filter = 1
-zoom = Vector2(3, 3)
-limit_left = -172
-limit_top = -96
-limit_right = 172
-limit_bottom = 96
+offset_left = -56.0
+offset_top = -125.0
+offset_right = 68.0
+offset_bottom = -102.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "O bun · I add · P plate · L redo · E exit"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[node name="Label" parent="Players" index="3" unique_id=1030804604]
-visible = true
-offset_top = -13.5
-offset_bottom = -1.5
+[node name="CantDoHint" type="Label" parent="AssemblyPlate" unique_id=487541706]
+visible = false
+offset_left = -47.0
+offset_top = -45.0
+offset_right = 57.0
+offset_bottom = -33.0
+theme_override_colors/font_color = Color(1, 0.35, 0.35, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 2
+theme_override_font_sizes/font_size = 8
+text = "i can't do this!"
+horizontal_alignment = 1
+vertical_alignment = 1
 
-[connection signal="body_entered" from="ExitZone" to="ExitZone" method="_on_body_entered"]
-[connection signal="body_exited" from="ExitZone" to="ExitZone" method="_on_body_exited"]
+[node name="FinishedPlate" type="Node2D" parent="." unique_id=651512243]
+position = Vector2(88, 22)
+script = ExtResource("8_finished")
 
-[editable path="Players"]
+[node name="DisplayedBurgers" type="Node2D" parent="FinishedPlate" unique_id=1892884127]
+
+[node name="DisplaySlots" type="Node2D" parent="FinishedPlate" unique_id=623593470]
+
+[node name="Slot0" type="Marker2D" parent="FinishedPlate/DisplaySlots" unique_id=116343864]
+position = Vector2(8, 15)
+
+[node name="Slot1" type="Marker2D" parent="FinishedPlate/DisplaySlots" unique_id=1897394857]
+position = Vector2(27, 15)
+
+[node name="Slot2" type="Marker2D" parent="FinishedPlate/DisplaySlots" unique_id=1805803906]
+position = Vector2(47, 15)
+
+[node name="Slot3" type="Marker2D" parent="FinishedPlate/DisplaySlots" unique_id=1019020803]
+position = Vector2(8, 31)
+
+[node name="Slot4" type="Marker2D" parent="FinishedPlate/DisplaySlots" unique_id=287947175]
+position = Vector2(27, 31)
+
+[node name="Slot5" type="Marker2D" parent="FinishedPlate/DisplaySlots" unique_id=182088224]
+position = Vector2(47, 31)
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1982736401]
+layer = 10
+
+[node name="BottomBar" type="Control" parent="UI" unique_id=428114378]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -80.0
+offset_top = -56.0
+offset_right = 80.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="IngredientCarousel" type="Control" parent="UI/BottomBar" unique_id=2007354389]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_carousel")
+frame_duration = null
+sprite_scale = null
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="UI/BottomBar/IngredientCarousel" unique_id=1596530794]

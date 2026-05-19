@@ -1,5 +1,5 @@
 ## 通用交互区域：玩家进入后显示 Press E，按 E 切换到指定场景。
-## 挂在主场景的 GrillZone / AssemblyZone（进分区）或分区场景的 ExitZone（回主场景）上。
+## 挂在主场景的 GrillZone / AssemblyZone / CashierZone（进分区）或分区场景的 ExitZone（回主场景）上。
 extends Area2D
 
 ## 按 E 后要加载的场景路径；在检查器里为每个 Area 单独设置。
@@ -33,8 +33,32 @@ func _get_game_state() -> GameStateService:
 func interact(player: Node2D = null) -> void:
 	if target_scene.is_empty():
 		return
-	if player and target_scene in [GameStateService.GRILL_SCENE, GameStateService.ASSEMBLE_SCENE]:
+	_persist_grill_state_before_leave()
+	_persist_assembly_state_before_leave()
+	if player and target_scene in [
+		GameStateService.GRILL_SCENE,
+		GameStateService.ASSEMBLE_SCENE,
+		GameStateService.CASHIER_SCENE,
+	]:
 		var game_state := _get_game_state()
 		if game_state:
 			game_state.save_hub_return(player.global_position)
 	get_tree().change_scene_to_file(target_scene)
+
+
+## 离开煎肉区前写入铁板状态（_exit_tree 时子节点已先释放，须提前保存）
+func _persist_grill_state_before_leave() -> void:
+	var current := get_tree().current_scene
+	if current == null or current.scene_file_path != GameStateService.GRILL_SCENE:
+		return
+	var work_areas := current.get_node_or_null("WorkAreas")
+	if work_areas and work_areas.has_method("save_grill_state_to_game"):
+		work_areas.save_grill_state_to_game()
+
+
+func _persist_assembly_state_before_leave() -> void:
+	var current := get_tree().current_scene
+	if current == null or current.scene_file_path != GameStateService.ASSEMBLE_SCENE:
+		return
+	if current.has_method("save_assembly_state_to_game"):
+		current.save_assembly_state_to_game()

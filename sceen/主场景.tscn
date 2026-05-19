@@ -43,6 +43,9 @@ size = Vector2(165, 55)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_assembly"]
 size = Vector2(193, 47)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v5dgv"]
+size = Vector2(193, 26)
+
 [node name="主场景" type="Node2D" unique_id=735080944]
 metadata/_edit_horizontal_guides_ = [-192.0]
 metadata/_edit_vertical_guides_ = [-344.0]
@@ -145,7 +148,17 @@ target_scene = "res://sceen/assemble.tscn"
 position = Vector2(17.5, -43.5)
 shape = SubResource("RectangleShape2D_assembly")
 
+[node name="CashierZone" type="Area2D" parent="." unique_id=1932615650]
+script = ExtResource("3_gpk2a")
+target_scene = "res://sceen/收银区.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CashierZone" unique_id=2000825175]
+position = Vector2(14.5, 60)
+shape = SubResource("RectangleShape2D_v5dgv")
+
 [connection signal="body_entered" from="GrillZone" to="GrillZone" method="_on_body_entered"]
 [connection signal="body_exited" from="GrillZone" to="GrillZone" method="_on_body_exited"]
 [connection signal="body_entered" from="AssemblyZone" to="AssemblyZone" method="_on_body_entered"]
 [connection signal="body_exited" from="AssemblyZone" to="AssemblyZone" method="_on_body_exited"]
+[connection signal="body_entered" from="CashierZone" to="CashierZone" method="_on_body_entered"]
+[connection signal="body_exited" from="CashierZone" to="CashierZone" method="_on_body_exited"]

@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgaxwatb2sd86"
-path="res://.godot/imported/组装区.jpg-5bdd0a5185c162e2811a0e56b7eafefc.ctex"
+uid="uid://wwh3b3ffaxb3"
+path="res://.godot/imported/顾客1.png-98b8d03a4e516b80bd4928f8f3c87fe7.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://游戏素材/场景/组装区.jpg"
-dest_files=["res://.godot/imported/组装区.jpg-5bdd0a5185c162e2811a0e56b7eafefc.ctex"]
+source_file="res://游戏素材/人物/顾客1.png"
+dest_files=["res://.godot/imported/顾客1.png-98b8d03a4e516b80bd4928f8f3c87fe7.ctex"]
 
 [params]
 

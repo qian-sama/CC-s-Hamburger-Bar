@@ -119,7 +119,7 @@ animations = [{
 }],
 "loop": true,
 "name": &"up_down front",
-"speed": 5.0
+"speed": 7.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ak4n4"]

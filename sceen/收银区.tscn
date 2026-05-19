@@ -1,0 +1,172 @@
+[gd_scene format=3 uid="uid://bdkar51pksg1c"]
+
+[ext_resource type="Texture2D" uid="uid://deethegvdr2oo" path="res://游戏素材/场景/收银区.png" id="1_eu3qy"]
+[ext_resource type="PackedScene" uid="uid://npw2oj68yntu" path="res://sceen/players.tscn" id="2_sx46k"]
+[ext_resource type="Script" uid="uid://bq37h2du5k57x" path="res://sceen/interact_zone.gd" id="3_exit"]
+[ext_resource type="Script" uid="uid://d13ti8wkx7ah7" path="res://sceen/cashier_work.gd" id="4_cashier"]
+[ext_resource type="Script" uid="uid://jecwfg0xkqj6" path="res://sceen/order_panel.gd" id="5_order_panel"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_nygyg"]
+size = Vector2(634, 28)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3a3q"]
+size = Vector2(642, 44)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_s060x"]
+size = Vector2(20, 466)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_eynha"]
+size = Vector2(20, 500)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
+size = Vector2(200, 28)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_order"]
+bg_color = Color(0.12, 0.1, 0.08, 0.92)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.85, 0.7, 0.35, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="收银区" type="Node2D" unique_id=11477588]
+script = ExtResource("4_cashier")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=652745483]
+texture_filter = 1
+position = Vector2(-0.99999994, -1)
+scale = Vector2(0.7936047, 0.78125)
+texture = ExtResource("1_eu3qy")
+
+[node name="Markers" type="Node2D" parent="." unique_id=1097554205]
+
+[node name="WalkEntrance" type="Marker2D" parent="Markers" unique_id=39219184]
+position = Vector2(-166, 136)
+
+[node name="WalkMid" type="Marker2D" parent="Markers" unique_id=1474187404]
+position = Vector2(-165, 94)
+
+[node name="CounterPoint" type="Marker2D" parent="Markers" unique_id=185753742]
+position = Vector2(-164, 46)
+
+[node name="PickupWalkMid" type="Marker2D" parent="Markers" unique_id=1042117706]
+position = Vector2(-92, 44)
+
+[node name="PickupQueue" type="Node2D" parent="Markers" unique_id=2033400422]
+
+[node name="Slot0" type="Marker2D" parent="Markers/PickupQueue" unique_id=751678416]
+position = Vector2(46, 54)
+
+[node name="Slot1" type="Marker2D" parent="Markers/PickupQueue" unique_id=1098075443]
+position = Vector2(46, 86)
+
+[node name="Slot2" type="Marker2D" parent="Markers/PickupQueue" unique_id=228419626]
+position = Vector2(46, 120)
+
+[node name="Slot3" type="Marker2D" parent="Markers/PickupQueue" unique_id=601418097]
+position = Vector2(-42, 125)
+
+[node name="Slot4" type="Marker2D" parent="Markers/PickupQueue" unique_id=1037268244]
+position = Vector2(-42, 87)
+
+[node name="Slot5" type="Marker2D" parent="Markers/PickupQueue" unique_id=344129597]
+position = Vector2(-43, 54)
+
+[node name="Customers" type="Node2D" parent="." unique_id=166493614]
+
+[node name="Players" parent="." unique_id=968255622 instance=ExtResource("2_sx46k")]
+position = Vector2(1, -54)
+
+[node name="Camera2D" parent="Players" index="1" unique_id=1718552350]
+limit_left = -274
+limit_top = -151
+limit_right = 272
+limit_bottom = 148
+
+[node name="Border" type="Node2D" parent="." unique_id=1223164997]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Border" unique_id=303582819]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D" unique_id=1990902884]
+position = Vector2(0, -164)
+shape = SubResource("RectangleShape2D_nygyg")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="Border" unique_id=1988874485]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D2" unique_id=1256447821]
+shape = SubResource("RectangleShape2D_n3a3q")
+
+[node name="StaticBody2D3" type="StaticBody2D" parent="Border" unique_id=1961660459]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D3" unique_id=1575259037]
+position = Vector2(-284, -53)
+shape = SubResource("RectangleShape2D_s060x")
+
+[node name="StaticBody2D4" type="StaticBody2D" parent="Border" unique_id=538005750]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Border/StaticBody2D4" unique_id=2099349983]
+position = Vector2(281, -75)
+shape = SubResource("RectangleShape2D_eynha")
+
+[node name="ExitZone" type="Area2D" parent="." unique_id=1020034922]
+script = ExtResource("3_exit")
+target_scene = "res://sceen/主场景.tscn"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExitZone" unique_id=101004361]
+position = Vector2(1, -137)
+shape = SubResource("RectangleShape2D_exit")
+
+[node name="UI" type="CanvasLayer" parent="." unique_id=1975512345]
+layer = 10
+
+[node name="OrderPanel" type="Control" parent="UI" unique_id=1968054936]
+visible = false
+layout_mode = 3
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -72.0
+offset_top = -140.0
+offset_right = 72.0
+offset_bottom = -20.0
+grow_horizontal = 2
+script = ExtResource("5_order_panel")
+
+[node name="Panel" type="PanelContainer" parent="UI/OrderPanel" unique_id=402391622]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_order")
+
+[node name="Margin" type="MarginContainer" parent="UI/OrderPanel/Panel" unique_id=1552647328]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 6
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 6
+
+[node name="VBox" type="VBoxContainer" parent="UI/OrderPanel/Panel/Margin" unique_id=948089716]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Title" type="Label" parent="UI/OrderPanel/Panel/Margin/VBox" unique_id=1060036377]
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "订单"
+horizontal_alignment = 1
+
+[node name="ItemsBox" type="VBoxContainer" parent="UI/OrderPanel/Panel/Margin/VBox" unique_id=1764923647]
+layout_mode = 2
+theme_override_constants/separation = 3
+
+[connection signal="body_entered" from="ExitZone" to="ExitZone" method="_on_body_entered"]
+[connection signal="body_exited" from="ExitZone" to="ExitZone" method="_on_body_exited"]
+
+[editable path="Players"]

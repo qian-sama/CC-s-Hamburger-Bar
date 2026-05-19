@@ -95,15 +95,40 @@ func can_take_from_grill() -> bool:
 	return state == State.ON_GRILL and doneness >= Doneness.THREE_MIN
 
 
-## 进入熟肉区后冻结外观与计时
+## 进入熟肉区后冻结外观与计时（须已进入场景树，否则请用 setup_cooked_display）
 func freeze_for_holder() -> void:
+	setup_cooked_display(doneness)
+
+
+## 熟肉区 / 组装区展示：固定熟度贴图，不再按 cook_time 重算
+func setup_cooked_display(saved_doneness: Doneness) -> void:
 	place_in_holder()
 	set_process(false)
+	doneness = saved_doneness
+	cook_time = _cook_time_for_doneness(saved_doneness)
+	_apply_holder_visual()
+
+
+func _apply_holder_visual() -> void:
 	if _sprite == null:
 		return
 	_sprite.stop()
 	_sprite.animation = &"grill"
 	_sprite.frame = doneness
+
+
+static func _cook_time_for_doneness(d: Doneness) -> float:
+	match d:
+		Doneness.BURNT:
+			return COOK_BURNT_TIME
+		Doneness.WELL_DONE:
+			return COOK_DONE_TIME
+		Doneness.SEVEN_MIN:
+			return STAGE_BOUNDARIES[2]
+		Doneness.THREE_MIN:
+			return STAGE_BOUNDARIES[1]
+		_:
+			return 0.0
 
 
 ## 是否允许放到铁板空槽（新生肉）
@@ -142,6 +167,33 @@ func reset_to_raw() -> void:
 	doneness = Doneness.RAW
 
 
+## 离开煎肉区前序列化（铁板上的肉饼）
+func capture_grill_snapshot() -> Dictionary:
+	return {
+		"slot_index": slot_index,
+		"cook_time": cook_time,
+		"doneness": doneness,
+		"was_ready": _was_ready,
+		"was_burnt": _was_burnt,
+		"time_scale": time_scale,
+	}
+
+
+## 回到煎肉区后恢复煎制进度；absent_seconds 为离开期间真实秒数 × time_scale 计入 cook_time
+func load_grill_snapshot(data: Dictionary, absent_seconds: float = 0.0) -> void:
+	time_scale = data.get("time_scale", 1.0)
+	_was_ready = data.get("was_ready", false)
+	_was_burnt = data.get("was_burnt", false)
+	slot_index = data.get("slot_index", -1)
+	state = State.ON_GRILL
+	var base_time: float = data.get("cook_time", 0.0)
+	cook_time = base_time + absent_seconds * time_scale
+	if cook_time >= COOK_DONE_TIME:
+		_was_ready = true
+	if cook_time >= COOK_BURNT_TIME:
+		_was_burnt = true
+
+
 func get_doneness_label() -> String:
 	match doneness:
 		Doneness.RAW:
@@ -172,6 +224,9 @@ func _check_milestones() -> void:
 
 ## 根据 cook_time 切换 AnimatedSprite2D 帧
 func _apply_visual() -> void:
+	if state == State.IN_HOLDER:
+		_apply_holder_visual()
+		return
 	var next := _doneness_from_cook_time()
 	doneness = next
 	if _sprite == null:

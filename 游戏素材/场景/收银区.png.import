@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dgaxwatb2sd86"
-path="res://.godot/imported/组装区.jpg-5bdd0a5185c162e2811a0e56b7eafefc.ctex"
+uid="uid://deethegvdr2oo"
+path="res://.godot/imported/收银区.png-613c9763bcc5864bd6a0228c4cb948ce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://游戏素材/场景/组装区.jpg"
-dest_files=["res://.godot/imported/组装区.jpg-5bdd0a5185c162e2811a0e56b7eafefc.ctex"]
+source_file="res://游戏素材/场景/收银区.png"
+dest_files=["res://.godot/imported/收银区.png-613c9763bcc5864bd6a0228c4cb948ce.ctex"]
 
 [params]
 

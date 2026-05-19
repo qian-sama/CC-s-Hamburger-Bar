@@ -2,6 +2,7 @@
 extends Node2D
 class_name GrillPlate
 
+const PATTY_SCENE: PackedScene = preload("res://sceen/肉饼.tscn")
 const COLUMNS := 4
 const ROWS := 2
 const MAX_PATTIES := 8
@@ -115,3 +116,30 @@ func restore_patty_to_slot(patty: Patty, slot_index: int) -> bool:
 	patty.z_index = 1
 	patty.start_grilling(slot_index)
 	return true
+
+
+## 采集铁板上各槽肉饼状态，供 GameState 持久化。
+func capture_grill_snapshots() -> Array[Dictionary]:
+	var snapshots: Array[Dictionary] = []
+	for slot in _slots:
+		if slot.is_empty():
+			continue
+		snapshots.append(slot.patty.capture_grill_snapshot())
+	return snapshots
+
+
+## 从存档恢复铁板肉饼并继续煎制；absent_seconds 为离开煎肉区期间经过的真实时间。
+func restore_grill_snapshots(snapshots: Array, patties_root: Node2D, absent_seconds: float = 0.0) -> void:
+	for data in snapshots:
+		var slot_index: int = data.get("slot_index", -1)
+		if slot_index < 0:
+			continue
+		var slot := get_slot(slot_index)
+		if slot == null or not slot.is_empty():
+			continue
+		var patty := PATTY_SCENE.instantiate() as Patty
+		patties_root.add_child(patty)
+		patty.load_grill_snapshot(data, absent_seconds)
+		slot.assign_patty(patty)
+		patty.global_position = slot.snap_global_position()
+		patty.z_index = 1
