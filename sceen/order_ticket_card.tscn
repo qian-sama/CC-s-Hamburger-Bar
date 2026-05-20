@@ -1,0 +1,16 @@
+[gd_scene load_steps=2 format=3 uid="uid://2nlf38ogjnbc"]
+
+[ext_resource type="Script" path="res://sceen/order_ticket_card.gd" id="1_card"]
+
+[node name="OrderTicketCard" type="PanelContainer"]
+custom_minimum_size = Vector2(56, 40)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+script = ExtResource("1_card")
+
+[node name="Items" type="VBoxContainer" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 1

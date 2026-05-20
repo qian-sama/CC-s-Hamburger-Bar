@@ -2,17 +2,19 @@
 extends RefCounted
 class_name IngredientDefs
 
+## 组装区可选食材类型
 enum Type {
-	PATTI,
-	PICKLE,
-	TOMATO,
-	ONION,
-	LETTUCE,
-	CHEESE,
-	BUN_BOTTOM,
-	BUN_TOP,
+	PATTI,       ## 肉饼（熟度由 doneness 决定）
+	PICKLE,      ## 酸黄瓜
+	TOMATO,      ## 番茄
+	ONION,       ## 洋葱
+	LETTUCE,     ## 生菜
+	CHEESE,      ## 芝士片
+	BUN_BOTTOM,  ## 汉堡底
+	BUN_TOP,     ## 汉堡顶
 }
 
+## 轮播中循环展示的蔬菜（不含肉饼与包）
 const CAROUSEL_VEGGIES: Array[Type] = [
 	Type.PICKLE,
 	Type.TOMATO,
@@ -21,6 +23,7 @@ const CAROUSEL_VEGGIES: Array[Type] = [
 	Type.CHEESE,
 ]
 
+## 蔬菜叠层 / 轮播贴图
 const TEXTURES: Dictionary = {
 	Type.PICKLE: preload("res://游戏素材/食材/酸黄瓜.png"),
 	Type.TOMATO: preload("res://游戏素材/食材/番茄.png"),
@@ -29,6 +32,7 @@ const TEXTURES: Dictionary = {
 	Type.CHEESE: preload("res://游戏素材/食材/芝士片.png"),
 }
 
+## 肉饼按熟度对应的叠层贴图
 const DONENESS_TEXTURES: Dictionary = {
 	Patty.Doneness.THREE_MIN: preload("res://游戏素材/食材/3分熟肉饼.png"),
 	Patty.Doneness.SEVEN_MIN: preload("res://游戏素材/食材/7分熟肉饼.png"),
@@ -47,10 +51,12 @@ static func build_carousel_order(include_patty: bool) -> Array[Type]:
 	return order
 
 
+## 轮播当前帧贴图（肉饼帧用 peek_doneness 预览队首熟度）。
 static func get_carousel_texture(type: Type, peek_doneness: int = -1) -> Texture2D:
 	return get_stack_texture(type, peek_doneness)
 
 
+## 订单 UI 显示的食材中文名。
 static func get_display_name(type: Type, doneness: int = -1) -> String:
 	match type:
 		Type.BUN_TOP:
@@ -73,6 +79,7 @@ static func get_display_name(type: Type, doneness: int = -1) -> String:
 			return "未知"
 
 
+## 肉饼熟度中文简称（三分熟 / 七分熟等）。
 static func _patty_doneness_label(doneness: int) -> String:
 	match doneness:
 		Patty.Doneness.THREE_MIN:
@@ -87,6 +94,7 @@ static func _patty_doneness_label(doneness: int) -> String:
 			return ""
 
 
+## 组装叠层 / 订单展示用的食材贴图；生肉或未指定熟度时肉饼返回 null。
 static func get_stack_texture(type: Type, doneness: int = -1) -> Texture2D:
 	match type:
 		Type.BUN_BOTTOM:

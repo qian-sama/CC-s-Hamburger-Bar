@@ -60,6 +60,9 @@ func _get_game_state() -> GameStateService:
 func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_pressed() or event.is_echo():
 		return
+	var game_state := _get_game_state()
+	if game_state != null and not game_state.is_session_active():
+		return
 	if event.is_action_pressed("PlacePatty"):
 		if _try_place_from_cold():
 			get_viewport().set_input_as_handled()

@@ -5,6 +5,9 @@
 [ext_resource type="Script" uid="uid://bq37h2du5k57x" path="res://sceen/interact_zone.gd" id="3_exit"]
 [ext_resource type="Script" uid="uid://d13ti8wkx7ah7" path="res://sceen/cashier_work.gd" id="4_cashier"]
 [ext_resource type="Script" uid="uid://jecwfg0xkqj6" path="res://sceen/order_panel.gd" id="5_order_panel"]
+[ext_resource type="Script" uid="uid://cri0cgf8hfyq5" path="res://sceen/cashier_order_zone.gd" id="6_order_zone"]
+[ext_resource type="Script" uid="uid://bddx8oblseueq" path="res://sceen/cashier_pickup_zone.gd" id="7_pickup_zone"]
+[ext_resource type="Script" uid="uid://lwtnjwxtv5m4" path="res://sceen/finished_burger_plate.gd" id="8_finished_plate"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_nygyg"]
 size = Vector2(634, 28)
@@ -17,6 +20,12 @@ size = Vector2(20, 466)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_eynha"]
 size = Vector2(20, 500)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pickup_zone"]
+size = Vector2(91, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_order_zone"]
+size = Vector2(96, 56)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_exit"]
 size = Vector2(200, 28)
@@ -76,6 +85,43 @@ position = Vector2(-42, 87)
 [node name="Slot5" type="Marker2D" parent="Markers/PickupQueue" unique_id=344129597]
 position = Vector2(-43, 54)
 
+[node name="LeaveRoute" type="Node2D" parent="Markers" unique_id=2100392850]
+
+[node name="1_Right" type="Marker2D" parent="Markers/LeaveRoute" unique_id=2100392851]
+position = Vector2(180, 58)
+
+[node name="2_RightMid" type="Marker2D" parent="Markers/LeaveRoute" unique_id=2100392852]
+position = Vector2(251, 58)
+
+[node name="3_Exit" type="Marker2D" parent="Markers/LeaveRoute" unique_id=2100392853]
+position = Vector2(254, 139)
+
+[node name="PickupFinishedPlate" type="Node2D" parent="." unique_id=2100392860]
+position = Vector2(-72, 88)
+script = ExtResource("8_finished_plate")
+
+[node name="DisplayedBurgers" type="Node2D" parent="PickupFinishedPlate" unique_id=2100392861]
+
+[node name="DisplaySlots" type="Node2D" parent="PickupFinishedPlate" unique_id=2100392862]
+
+[node name="BurgerSlot0" type="Marker2D" parent="PickupFinishedPlate/DisplaySlots" unique_id=2100392863]
+position = Vector2(256, -96)
+
+[node name="BurgerSlot1" type="Marker2D" parent="PickupFinishedPlate/DisplaySlots" unique_id=2100392864]
+position = Vector2(273, -96)
+
+[node name="BurgerSlot2" type="Marker2D" parent="PickupFinishedPlate/DisplaySlots" unique_id=2100392865]
+position = Vector2(290, -96)
+
+[node name="BurgerSlot3" type="Marker2D" parent="PickupFinishedPlate/DisplaySlots" unique_id=2100392866]
+position = Vector2(256, -80)
+
+[node name="BurgerSlot4" type="Marker2D" parent="PickupFinishedPlate/DisplaySlots" unique_id=2100392867]
+position = Vector2(273, -80)
+
+[node name="BurgerSlot5" type="Marker2D" parent="PickupFinishedPlate/DisplaySlots" unique_id=2100392868]
+position = Vector2(290, -80)
+
 [node name="Customers" type="Node2D" parent="." unique_id=166493614]
 
 [node name="Players" parent="." unique_id=968255622 instance=ExtResource("2_sx46k")]
@@ -84,8 +130,8 @@ position = Vector2(1, -54)
 [node name="Camera2D" parent="Players" index="1" unique_id=1718552350]
 limit_left = -274
 limit_top = -151
-limit_right = 272
-limit_bottom = 148
+limit_right = 270
+limit_bottom = 149
 
 [node name="Border" type="Node2D" parent="." unique_id=1223164997]
 
@@ -112,6 +158,21 @@ shape = SubResource("RectangleShape2D_s060x")
 position = Vector2(281, -75)
 shape = SubResource("RectangleShape2D_eynha")
 
+[node name="PickupDeliverZone" type="Area2D" parent="." unique_id=2100392843]
+position = Vector2(183, -51)
+script = ExtResource("7_pickup_zone")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PickupDeliverZone" unique_id=2100392844]
+shape = SubResource("RectangleShape2D_pickup_zone")
+
+[node name="OrderZone" type="Area2D" parent="." unique_id=2100392841]
+position = Vector2(-108, 44)
+script = ExtResource("6_order_zone")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="OrderZone" unique_id=2100392842]
+position = Vector2(-57, -93)
+shape = SubResource("RectangleShape2D_order_zone")
+
 [node name="ExitZone" type="Area2D" parent="." unique_id=1020034922]
 script = ExtResource("3_exit")
 target_scene = "res://sceen/主场景.tscn"
@@ -124,15 +185,14 @@ shape = SubResource("RectangleShape2D_exit")
 layer = 10
 
 [node name="OrderPanel" type="Control" parent="UI" unique_id=1968054936]
-visible = false
 layout_mode = 3
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -72.0
-offset_top = -140.0
-offset_right = 72.0
-offset_bottom = -20.0
+offset_left = -71.0
+offset_top = -139.0
+offset_right = 73.0
+offset_bottom = -19.0
 grow_horizontal = 2
 script = ExtResource("5_order_panel")
 
@@ -166,6 +226,10 @@ horizontal_alignment = 1
 layout_mode = 2
 theme_override_constants/separation = 3
 
+[connection signal="body_entered" from="PickupDeliverZone" to="PickupDeliverZone" method="_on_body_entered"]
+[connection signal="body_exited" from="PickupDeliverZone" to="PickupDeliverZone" method="_on_body_exited"]
+[connection signal="body_entered" from="OrderZone" to="OrderZone" method="_on_body_entered"]
+[connection signal="body_exited" from="OrderZone" to="OrderZone" method="_on_body_exited"]
 [connection signal="body_entered" from="ExitZone" to="ExitZone" method="_on_body_entered"]
 [connection signal="body_exited" from="ExitZone" to="ExitZone" method="_on_body_exited"]
 

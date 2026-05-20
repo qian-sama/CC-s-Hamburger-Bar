@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://b8ddqyigxtf46"]
 
 [ext_resource type="Texture2D" uid="uid://wwh3b3ffaxb3" path="res://游戏素材/人物/顾客1.png" id="1_ff7eq"]
-[ext_resource type="Script" path="res://sceen/customer.gd" id="2_customer"]
+[ext_resource type="Script" uid="uid://doemy1skgrb2q" path="res://sceen/customer.gd" id="2_customer"]
+[ext_resource type="PackedScene" uid="uid://blr4d4j0gc03y" path="res://sceen/customer_order_bubble.tscn" id="3_order_bubble"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_005iy"]
 atlas = ExtResource("1_ff7eq")
@@ -130,3 +131,5 @@ script = ExtResource("2_customer")
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_2grmj")
 animation = &"right"
+
+[node name="CustomerOrderBubble" parent="." unique_id=1077424840 instance=ExtResource("3_order_bubble")]

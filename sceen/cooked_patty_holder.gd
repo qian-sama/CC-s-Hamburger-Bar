@@ -9,7 +9,7 @@ const PATTY_SCENE: PackedScene = preload("res://sceen/肉饼.tscn")
 @onready var _slot_markers: Node2D = $DisplaySlots
 
 var _markers: Array[Marker2D] = []
-var _stored: Array[Patty] = []
+var _stored: Array[Patty] = []  # 当前画面上的展示用肉饼实例
 
 
 func _ready() -> void:
@@ -20,6 +20,7 @@ func _ready() -> void:
 	sync_from_game_state()
 
 
+## GameState 熟肉队列变化时刷新。
 func _on_cooked_patties_changed() -> void:
 	sync_from_game_state()
 
@@ -28,6 +29,7 @@ func _get_game_state() -> GameStateService:
 	return get_tree().root.get_node_or_null("GameState") as GameStateService
 
 
+## 收集 DisplaySlots 下 Marker2D 并按名称排序。
 func _collect_markers() -> void:
 	_markers.clear()
 	for child in _slot_markers.get_children():
@@ -38,10 +40,12 @@ func _collect_markers() -> void:
 	)
 
 
+## 当前展示的肉饼数量。
 func patty_count() -> int:
 	return _stored.size()
 
 
+## 熟肉区是否已满（以 GameState 上限为准）。
 func is_full() -> bool:
 	var game_state := _get_game_state()
 	if game_state:
@@ -49,11 +53,12 @@ func is_full() -> bool:
 	return _stored.size() >= MAX_PATTIES
 
 
+## 是否还能再入库一块熟肉。
 func has_space() -> bool:
 	return not is_full()
 
 
-## 按 GameState 队列顺序重建画面（索引 0 对应队首 / Slot0）
+## 按 GameState 队列顺序重建画面（索引 0 对应队首 / Slot0）。
 func sync_from_game_state() -> void:
 	_clear_display()
 	var game_state := _get_game_state()
@@ -67,6 +72,7 @@ func sync_from_game_state() -> void:
 		_stored.append(patty)
 
 
+## 释放所有展示肉饼并清空子节点。
 func _clear_display() -> void:
 	for patty in _stored:
 		if is_instance_valid(patty):
@@ -76,6 +82,7 @@ func _clear_display() -> void:
 		child.queue_free()
 
 
+## 生成仅用于展示的冻结熟肉饼（不参与煎制计时）。
 func _spawn_frozen_patty(doneness: int) -> Patty:
 	var patty := PATTY_SCENE.instantiate() as Patty
 	_display_root.add_child(patty)
@@ -83,6 +90,7 @@ func _spawn_frozen_patty(doneness: int) -> Patty:
 	return patty
 
 
+## 将肉饼放到对应槽位 Marker 的世界坐标。
 func _place_patty_at_slot(patty: Patty, index: int) -> void:
 	var marker := _markers[index] if index < _markers.size() else null
 	if marker != null:

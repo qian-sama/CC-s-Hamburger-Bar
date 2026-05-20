@@ -25,24 +25,26 @@ func _on_body_exited(body: Node2D) -> void:
 		body.exit_interact_zone(self)
 
 
+## 获取 autoload GameState 单例。
 func _get_game_state() -> GameStateService:
 	return get_tree().root.get_node_or_null("GameState") as GameStateService
 
 
 ## 执行场景切换（由玩家的 _unhandled_input 在按 E 时调用）。
 func interact(player: Node2D = null) -> void:
+	var game_state := _get_game_state()
+	if game_state != null and not game_state.is_session_active():
+		return
 	if target_scene.is_empty():
 		return
 	_persist_grill_state_before_leave()
 	_persist_assembly_state_before_leave()
-	if player and target_scene in [
+	if player and game_state and target_scene in [
 		GameStateService.GRILL_SCENE,
 		GameStateService.ASSEMBLE_SCENE,
 		GameStateService.CASHIER_SCENE,
 	]:
-		var game_state := _get_game_state()
-		if game_state:
-			game_state.save_hub_return(player.global_position)
+		game_state.save_hub_return(player.global_position)
 	get_tree().change_scene_to_file(target_scene)
 
 

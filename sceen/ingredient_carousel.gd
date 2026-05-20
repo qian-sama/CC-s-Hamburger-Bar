@@ -10,8 +10,8 @@ const ANIM_NAME := &"cycle"
 
 @onready var _sprite: AnimatedSprite2D = $AnimatedSprite2D
 
-var _ingredient_order: Array[IngredientDefs.Type] = []
-var _frozen: bool = false
+var _ingredient_order: Array[IngredientDefs.Type] = []  # 当前轮播帧顺序
+var _frozen: bool = false  # true 时停止轮播（如选中肉饼后）
 
 
 func _ready() -> void:
@@ -28,12 +28,14 @@ func _ready() -> void:
 	call_deferred("_rebuild_and_play")
 
 
+## 熟肉队列变化时重建轮播（未 freeze 时）。
 func _on_cooked_patties_changed() -> void:
 	if _frozen:
 		return
 	_rebuild_and_play()
 
 
+## 按是否有熟肉重建 SpriteFrames 并开始循环播放。
 func _rebuild_and_play() -> void:
 	if _sprite == null:
 		return
@@ -57,6 +59,7 @@ func _rebuild_and_play() -> void:
 	_center_sprite()
 
 
+## 返回当前停在哪一帧对应的食材类型。
 func get_current_ingredient() -> IngredientDefs.Type:
 	if _ingredient_order.is_empty() or _sprite == null:
 		return IngredientDefs.Type.PICKLE
@@ -64,6 +67,7 @@ func get_current_ingredient() -> IngredientDefs.Type:
 	return _ingredient_order[index]
 
 
+## 停在当前帧，不再自动切换。
 func freeze_on_current() -> void:
 	if _sprite == null:
 		return
@@ -71,16 +75,19 @@ func freeze_on_current() -> void:
 	_sprite.stop()
 
 
+## 恢复自动轮播。
 func resume_cycle() -> void:
 	_frozen = false
 	_rebuild_and_play()
 
 
+## 熟肉区是否有肉（决定轮播是否含 PATTI 帧）。
 func _has_cooked_patty() -> bool:
 	var game_state := _get_game_state()
 	return game_state != null and game_state.get_cooked_count() > 0
 
 
+## 预览队首肉饼熟度（用于肉饼轮播帧贴图）。
 func _peek_doneness() -> int:
 	var game_state := _get_game_state()
 	if game_state == null:
@@ -88,6 +95,7 @@ func _peek_doneness() -> int:
 	return game_state.peek_next_cooked_doneness()
 
 
+## 将精灵居中于 Control 区域。
 func _center_sprite() -> void:
 	if _sprite == null:
 		return

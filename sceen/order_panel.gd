@@ -2,11 +2,13 @@
 extends Control
 class_name OrderPanel
 
+## 食材图标缩放
 const ICON_SCALE := 2.0
 
 @onready var _items_box: VBoxContainer = $Panel/Margin/VBox/ItemsBox
 
 
+## 按顶→底顺序填充订单行并显示面板。
 func show_order(layers: Array) -> void:
 	_clear_items()
 	for layer in OrderGenerator.layers_top_first(layers):
@@ -18,11 +20,13 @@ func show_order(layers: Array) -> void:
 	visible = true
 
 
+## 隐藏面板并清空内容。
 func hide_order() -> void:
 	visible = false
 	_clear_items()
 
 
+## 添加一行：图标 + 食材名称。
 func _add_row(ingredient_type: IngredientDefs.Type, doneness: int) -> void:
 	var row := HBoxContainer.new()
 	row.add_theme_constant_override("separation", 6)
@@ -42,6 +46,7 @@ func _add_row(ingredient_type: IngredientDefs.Type, doneness: int) -> void:
 	_items_box.add_child(row)
 
 
+## 移除 ItemsBox 下所有子节点。
 func _clear_items() -> void:
 	for child in _items_box.get_children():
 		child.queue_free()

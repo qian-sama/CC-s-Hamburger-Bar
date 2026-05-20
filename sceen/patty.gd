@@ -86,6 +86,7 @@ func is_ready() -> bool:
 	return cook_time >= COOK_DONE_TIME and doneness != Doneness.BURNT
 
 
+## 是否已煎焦。
 func is_burnt() -> bool:
 	return cook_time >= COOK_BURNT_TIME
 
@@ -142,6 +143,7 @@ func start_grilling(grill_slot: int) -> void:
 	state = State.ON_GRILL
 
 
+## 离开铁板槽位（不清 cook_time）。
 func stop_grilling() -> void:
 	slot_index = -1
 
@@ -194,6 +196,7 @@ func load_grill_snapshot(data: Dictionary, absent_seconds: float = 0.0) -> void:
 		_was_burnt = true
 
 
+## 当前熟度中文标签（用于 UI）。
 func get_doneness_label() -> String:
 	match doneness:
 		Doneness.RAW:
@@ -209,10 +212,12 @@ func get_doneness_label() -> String:
 	return ""
 
 
+## 仅在 ON_GRILL 时每帧累加 cook_time。
 func _update_process_mode() -> void:
 	set_process(state == State.ON_GRILL)
 
 
+## 检测全熟/焦糊里程碑并 emit 对应信号（各仅一次）。
 func _check_milestones() -> void:
 	if not _was_ready and cook_time >= COOK_DONE_TIME:
 		_was_ready = true

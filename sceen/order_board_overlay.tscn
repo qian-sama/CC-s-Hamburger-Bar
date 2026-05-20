@@ -1,0 +1,33 @@
+[gd_scene format=3 uid="uid://0sc4h4irmjyp"]
+
+[ext_resource type="Script" uid="uid://c0n335j5tovyc" path="res://sceen/order_board_overlay.gd" id="1_overlay"]
+
+[node name="OrderBoard" type="CanvasLayer" unique_id=279133374]
+layer = 90
+script = ExtResource("1_overlay")
+
+[node name="Root" type="Control" parent="." unique_id=1185823324]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Margin" type="MarginContainer" parent="Root" unique_id=607302789]
+layout_mode = 0
+offset_right = 230.0
+offset_bottom = 90.0
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+
+[node name="VBox" type="VBoxContainer" parent="Root/Margin" unique_id=229830876]
+layout_mode = 2
+theme_override_constants/separation = 4
+
+[node name="Row" type="HBoxContainer" parent="Root/Margin/VBox" unique_id=1285296498]
+layout_mode = 2
+theme_override_constants/separation = 6
+alignment = 0
+
+[node name="Hint" type="Label" parent="Root/Margin/VBox" unique_id=511050834]
+texture_filter = 1
+layout_mode = 2
+theme_override_font_sizes/font_size = 11
+text = "暂无订单"

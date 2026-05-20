@@ -7,13 +7,14 @@ const COLUMNS := 4
 const ROWS := 2
 const MAX_PATTIES := 8
 
-var _slots: Array[GrillSlot] = []
+var _slots: Array[GrillSlot] = []  # 按 slot_index 排序的槽位列表
 
 
 func _ready() -> void:
 	_collect_slots()
 
 
+## 收集子节点 GrillSlot 并按 slot_index 排序。
 func _collect_slots() -> void:
 	_slots.clear()
 	for child in get_children():
@@ -24,6 +25,7 @@ func _collect_slots() -> void:
 	)
 
 
+## 铁板上当前肉饼数量。
 func patty_count() -> int:
 	var count := 0
 	for slot in _slots:
@@ -32,6 +34,7 @@ func patty_count() -> int:
 	return count
 
 
+## 8 槽是否已全部占用。
 func is_full() -> bool:
 	return patty_count() >= MAX_PATTIES
 
@@ -45,6 +48,7 @@ func find_first_empty_slot() -> int:
 	return -1
 
 
+## 按 slot_index 查找槽位节点。
 func get_slot(index: int) -> GrillSlot:
 	for slot in _slots:
 		if slot.slot_index == index:
@@ -52,14 +56,17 @@ func get_slot(index: int) -> GrillSlot:
 	return null
 
 
+## 列号 + 行号 → 槽位 index（row 0 上排，1 下排）。
 static func column_row_to_slot(column: int, row: int) -> int:
 	return column + row * COLUMNS
 
 
+## 槽位 index → 列号 0~3。
 static func slot_to_column(slot_index: int) -> int:
 	return slot_index % COLUMNS
 
 
+## 槽位 index → 行号 0/1。
 static func slot_to_row(slot_index: int) -> int:
 	return slot_index / COLUMNS
 
