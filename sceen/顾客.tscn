@@ -130,6 +130,6 @@ script = ExtResource("2_customer")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1265238547]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_2grmj")
-animation = &"right"
+animation = &"left"
 
 [node name="CustomerOrderBubble" parent="." unique_id=1077424840 instance=ExtResource("3_order_bubble")]

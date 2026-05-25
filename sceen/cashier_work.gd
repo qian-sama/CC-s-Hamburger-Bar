@@ -473,7 +473,7 @@ func _update_cashier_hints() -> void:
 ## 离开场景时清除玩家收银提示。
 func _clear_player_order_hint() -> void:
 	var player := _get_player()
-	if player:
+	if player and player.is_inside_tree():
 		player.clear_cashier_hint()
 
 

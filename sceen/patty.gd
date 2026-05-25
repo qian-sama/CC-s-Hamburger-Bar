@@ -14,18 +14,20 @@ enum State {
 ## 对应 肉饼.tscn 里 grill 动画的帧序号（0~4）
 enum Doneness {
 	RAW = 0,       ## 0 熟
-	THREE_MIN = 1, ## 约 1 分钟起：三分熟外观
-	SEVEN_MIN = 2, ## 约 2 分钟起：七分熟外观
-	WELL_DONE = 3, ## 3 分钟：全熟（可出锅）
-	BURNT = 4,     ## 3 分 40 秒：焦糊
+	THREE_MIN = 1, ## 20s：三分熟外观
+	SEVEN_MIN = 2, ## 40s：七分熟外观
+	WELL_DONE = 3, ## 60s：全熟（可出锅）
+	BURNT = 4,     ## 80s：焦糊
 }
 
+## 每个熟度阶段时长（秒）
+const STAGE_DURATION := 20.0
 ## 达到全熟、可出锅的时间（秒）
-const COOK_DONE_TIME := 180.0
+const COOK_DONE_TIME := STAGE_DURATION * 3.0
 ## 超过此时间变为焦肉饼（秒）
-const COOK_BURNT_TIME := 220.0
+const COOK_BURNT_TIME := STAGE_DURATION * 4.0
 ## 外观阶段分界：0熟 → 3分 → 7分 → 全熟（秒）
-const STAGE_BOUNDARIES := [0.0, 60.0, 120.0, COOK_DONE_TIME]
+const STAGE_BOUNDARIES := [0.0, STAGE_DURATION, STAGE_DURATION * 2.0, COOK_DONE_TIME]
 
 signal doneness_changed(doneness: Doneness)
 signal became_ready      ## 首次达到 COOK_DONE_TIME

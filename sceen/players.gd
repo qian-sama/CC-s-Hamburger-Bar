@@ -61,7 +61,13 @@ func clear_cashier_hint() -> void:
 
 
 func _refresh_interact_label() -> void:
-	var game_state := get_tree().root.get_node_or_null("GameState") as GameStateService
+	# 切场景时子节点可能已离树，此时 get_tree() 为 null
+	if not is_inside_tree():
+		return
+	var tree := get_tree()
+	if tree == null:
+		return
+	var game_state := tree.root.get_node_or_null("GameState") as GameStateService
 	if game_state != null and not game_state.is_session_active():
 		interact_label.visible = false
 		return
